@@ -29,8 +29,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:
 main{max-width:620px;margin:0 auto;padding:28px 20px 56px}
 h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
 h1{font-size:38px;line-height:1.15;letter-spacing:.04em}
-h2{font-size:22px;line-height:1.35}
+h2{font-size:22px;line-height:1.35;margin-top:10px}
 p{margin:0}
+ul{margin:0;padding:0;list-style:none}
 .muted{color:var(--muted)}
 .small{font-size:13px;line-height:1.6}
 .stack{display:flex;flex-direction:column;gap:20px}
@@ -41,8 +42,8 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 .btn{min-height:48px;padding:0 22px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-weight:500}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn.text{border:none;background:none;padding:0 4px;color:var(--muted);min-height:44px}
+.btn small{display:block;font-size:12px;font-weight:400;opacity:.8;line-height:1.2}
 
-/* coordinate plane */
 .plane{width:100%;max-width:340px;display:block}
 .plane .grid{stroke:var(--line);stroke-width:1}
 .plane .axis{stroke:var(--ink);stroke-width:1.2}
@@ -54,7 +55,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 .plane .mark{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
 @media (prefers-reduced-motion:reduce){.plane .mark{transition:none}}
 
-/* start */
 .hero{display:flex;flex-direction:column;gap:18px}
 .meta{font-size:13px;color:var(--muted);letter-spacing:.02em}
 .axes{border-top:1px solid var(--line)}
@@ -62,7 +62,6 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 .axes b{font-weight:500}
 .axes span{color:var(--muted);text-align:right}
 
-/* quiz */
 .bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .25s}
 .qmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -73,20 +72,26 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offse
 .opt[aria-pressed="true"]{border-color:var(--teal);background:var(--wash)}
 @media (hover:hover){.opt:hover{border-color:var(--teal)}}
 
-/* result */
 .seal{align-self:flex-start;font-family:var(--display);font-size:30px;line-height:1.2;color:var(--seal);border:2px solid var(--seal);outline:1px solid var(--seal);outline-offset:3px;padding:8px 16px;border-radius:3px;transform:rotate(-2.5deg);letter-spacing:.08em;margin:6px 0 4px 4px}
 .note{background:var(--wash);border-radius:6px;padding:12px 14px;font-size:14px}
 .read{border-top:1px solid var(--line)}
 .read div{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
 .read b{flex:0 0 5.5em;font-weight:500;color:var(--muted)}
-.ax{display:flex;flex-direction:column;gap:6px}
-.ax .top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.ax{display:flex;flex-direction:column;gap:6px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.ax:last-child{border-bottom:none;padding-bottom:0}
+.ax .top{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
 .ax .top b{font-weight:500}
 .ax .top span{color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
-.track{position:relative;height:8px;border-radius:4px;background:var(--card);border:1px solid var(--line)}
+.track{position:relative;height:8px;border-radius:4px;background:var(--card);border:1px solid var(--line);margin-top:4px}
 .track::before{content:"";position:absolute;left:50%;top:-4px;width:1px;height:14px;background:var(--muted)}
 .track i{position:absolute;top:-5px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--teal);border:2px solid var(--paper)}
 .ax .ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.ax .say{font-size:14.5px;margin-top:6px}
+.fac{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.fac div{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.list li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.list li:first-child{border-top:1px solid var(--line)}
+.list li b{font-weight:500;color:var(--teal);margin-right:.5em;white-space:nowrap}
 textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
 hr{border:none;border-top:1px solid var(--line);margin:4px 0}
 @media (max-width:400px){h1{font-size:32px}.qtext{font-size:21px}.seal{font-size:26px}}
@@ -98,9 +103,9 @@ hr{border:none;border-top:1px solid var(--line);margin:4px 0}
 
 <section id="v-start" class="stack">
   <div class="hero">
-    <p class="meta">五条轴 · 50 道题 · 约 8 分钟</p>
+    <p class="meta">六条轴 · 72 道题 · 约 12 分钟</p>
     <h1>中国政治坐标</h1>
-    <p>对一句话表态，同意还是反对。答完之后，你会看到自己在国家与市场、平等与效率、权威与自由、传统与多元、民族与开放这五条轴上各站在哪里。</p>
+    <p>对一句话表态，同意还是反对。答完之后，你会看到自己在国家与市场、平等与效率、权威与自由、传统与多元、民族与开放、求稳与求变这六条轴上各站在哪里，以及每条轴的分数说明了什么。</p>
     <svg class="plane" viewBox="0 0 300 300" role="img" aria-label="经济和政治两条主轴构成的坐标图，四个象限分别是国家主义左翼、新权威主义、社会民主派和市场自由派">
       <rect class="frame" x="20" y="20" width="260" height="260"/>
       <g class="grid"><line x1="85" y1="20" x2="85" y2="280"/><line x1="215" y1="20" x2="215" y2="280"/><line x1="20" y1="85" x2="280" y2="85"/><line x1="20" y1="215" x2="280" y2="215"/></g>
@@ -112,24 +117,26 @@ hr{border:none;border-top:1px solid var(--line);margin:4px 0}
       <circle class="ring" cx="150" cy="150" r="9"/><circle class="dot" cx="150" cy="150" r="4.5"/>
     </svg>
     <div class="row">
-      <button class="btn" id="btn-start" type="button">开始测试</button>
-      <button class="btn ghost" id="btn-resume" type="button" hidden>继续上次</button>
+      <button class="btn" id="btn-full" type="button">完整版<small>72 题，约 12 分钟</small></button>
+      <button class="btn ghost" id="btn-quick" type="button">快速版<small>36 题，约 6 分钟</small></button>
     </div>
-    <p class="small muted">不记名。答案只留在你自己的浏览器里，不会上传到任何地方。</p>
+    <div class="row"><button class="btn ghost" id="btn-resume" type="button" hidden>继续上次</button></div>
+    <p class="small muted">不记名。答案只留在你自己的浏览器里，不会上传到任何地方。完整版会多给出每条轴内部三个小项的分数。</p>
   </div>
-  <div class="axes" aria-label="五条轴">
+  <div class="axes" aria-label="六条轴">
     <div><b>经济体制</b><span>国家主导 ↔ 市场主导</span></div>
     <div><b>分配福利</b><span>平等优先 ↔ 效率优先</span></div>
     <div><b>政治权力</b><span>集中权威 ↔ 制衡自由</span></div>
     <div><b>文化社会</b><span>传统 ↔ 多元</span></div>
     <div><b>民族对外</b><span>民族本位 ↔ 国际开放</span></div>
+    <div><b>变革态度</b><span>求稳渐进 ↔ 求变</span></div>
   </div>
-  <p class="small muted">“左”和“右”在中国和西方的含义大致相反，结果页两种说法都会给。这是一份自测工具，不是学术量表。每条轴 10 道题，正反两个方向各 5 道。</p>
+  <p class="small muted">“左”和“右”在中国和西方的含义大致相反，结果页两种说法都会给。这是一份自测工具，不是学术量表。每条轴分三个小项，每个小项里正反两个方向的题目一样多。</p>
 </section>
 
 <section id="v-quiz" class="stack" hidden>
   <div class="stack" style="gap:8px">
-    <div class="qmeta"><span id="q-count">1 / 50</span><span id="q-axis"></span></div>
+    <div class="qmeta"><span id="q-count">1 / 72</span><span id="q-axis"></span></div>
     <div class="bar"><i id="q-bar"></i></div>
   </div>
   <p class="qtext" id="q-text" aria-live="polite"></p>
@@ -147,14 +154,17 @@ hr{border:none;border-top:1px solid var(--line);margin:4px 0}
 </section>
 
 <section id="v-result" class="stack" hidden>
-  <p class="note" id="r-shared" hidden>这是别人分享的一份结果。想知道自己的位置，可以自己测一遍。</p>
+  <p class="note" id="r-shared" hidden>这是别人分享的一份结果，只包含六条轴的分数。想知道自己的位置，可以自己测一遍。</p>
   <p class="meta">你的位置</p>
   <div class="seal" id="r-type"></div>
   <p id="r-desc"></p>
+  <p id="r-views"></p>
+  <p class="muted" id="r-near" style="font-size:14.5px"></p>
   <div class="read">
     <div><b>中国的说法</b><span id="r-cn"></span></div>
     <div><b>西方的说法</b><span id="r-west"></span></div>
-    <div><b>另外</b><span id="r-mod"></span></div>
+    <div><b>变革态度</b><span id="r-change"></span></div>
+    <div id="r-conf-row"><b>把握程度</b><span id="r-conf"></span></div>
   </div>
   <svg class="plane" id="r-plane" viewBox="0 0 300 300" role="img" aria-label="你在经济和政治坐标图上的位置">
     <rect class="frame" x="20" y="20" width="260" height="260"/>
@@ -166,107 +176,199 @@ hr{border:none;border-top:1px solid var(--line);margin:4px 0}
     <text class="end" x="24" y="145">国家·平等</text><text class="end" x="276" y="145" text-anchor="end">市场·效率</text>
     <g class="mark" id="r-mark"><circle class="ring" cx="150" cy="150" r="10"/><circle class="dot" cx="150" cy="150" r="5.5"/></g>
   </svg>
-  <h2>五条轴的得分</h2>
+  <p class="small muted">横轴是经济体制和分配福利两项的平均，纵轴是政治权力。类型就是按红点落在哪一块定的，离中心 15 分以内算居中。</p>
+
+  <h2>六条轴逐条看</h2>
   <div class="stack" id="r-axes" style="gap:18px"></div>
-  <p class="small muted">分数从 −100 到 +100，0 是中点。横轴取经济体制和分配福利两项的平均，纵轴是政治权力。</p>
+
+  <h2>值得留意的组合</h2>
+  <ul class="list" id="r-combos"></ul>
+
+  <div id="r-strong-wrap" class="stack" style="gap:12px">
+    <h2>你态度最鲜明的几题</h2>
+    <ul class="list" id="r-strong"></ul>
+  </div>
+
+  <h2>怎么读这份结果</h2>
+  <p class="small">每道题从非常同意到非常反对记 +2 到 −2 分，按题目的方向加总，再换算成 −100 到 +100。0 是中点，不代表正确或者适中，只代表两个方向的回答互相抵消了。</p>
+  <p class="small">类型的名字是为了方便描述，不是给人贴的标签。同一个类型里的人，在具体问题上可能想法差得很远；你也可能在某条轴上和自己的类型很不一样，那几条轴的说明比类型名更能说明你。</p>
+  <p class="small">题目只能问到态度，问不到原因。两个人给出一样的分数，理由可能完全不同。每条轴最多 12 道题，分数有十分上下的误差，方向可以信，具体数字不必太当真。</p>
   <hr>
   <div class="row">
     <button class="btn" id="btn-copy" type="button">复制结果</button>
     <button class="btn ghost" id="btn-again" type="button">重新测试</button>
   </div>
   <p class="small muted" id="r-copied" hidden></p>
-  <textarea id="r-text" rows="9" readonly hidden aria-label="结果文字"></textarea>
-  <p class="small muted">这份结果只是一个大致的画像。同一个标签下的人，在具体问题上可能想法差得很远；每条轴只有 10 道题，分数有十几分的误差。</p>
+  <textarea id="r-text" rows="10" readonly hidden aria-label="结果文字"></textarea>
 </section>
 
 </main>
 <script>
 (function(){
 var AX=[
- {name:'经济体制',neg:'国家主导',pos:'市场主导'},
- {name:'分配福利',neg:'平等优先',pos:'效率优先'},
- {name:'政治权力',neg:'集中权威',pos:'制衡自由'},
- {name:'文化社会',neg:'传统',pos:'多元'},
- {name:'民族对外',neg:'民族本位',pos:'国际开放'}
+ {name:'经济体制',neg:'国家主导',pos:'市场主导',
+  bands:['你认为国家应当直接掌握和指挥经济的主干。国企、产业政策和价格调控在你看来是必需的工具，市场只能在划定的范围内起作用。','你倾向于让国家在经济里扮演主导角色，对放开市场和资本持保留态度，但并不排斥市场本身。','你在国家和市场之间没有固定的偏向，大概是看具体行业和具体问题来定。','你倾向于让市场来配置资源，认为政府应当少干预、国企应当收缩，但接受国家在一些关键领域保留作用。','你是比较彻底的市场派：产权要清晰，价格要放开，国企要退出，政府主要负责定规则，而不是下场经营。'],
+  facets:[
+   {name:'所有制与国企',items:[[-1,'关系国计民生的重要行业，必须由国有企业掌握。'],[1,'国有企业应当退出一般的竞争性行业。'],[-1,'国有企业承担着稳定就业和保障供应的责任，不能只用盈利来衡量。'],[1,'国企长期亏损就应当破产或者卖掉，不该靠财政和银行一直输血。']]},
+   {name:'政府与产业',items:[[-1,'政府集中资源扶持重点产业，比让市场自己选择更有效。'],[1,'政府对企业经营的干预越少越好。'],[-1,'资本的扩张必须受到严格约束，否则会损害社会。'],[1,'对新出现的行业，应当先让它发展，出了问题再监管。']]},
+   {name:'土地、金融与价格',items:[[-1,'粮食、能源这类重要商品的价格应当由政府调控，不能完全交给市场。'],[1,'农村土地应当允许农民自由买卖。'],[-1,'银行信贷应当服从国家的发展战略，而不是只看回报。'],[1,'房价应当主要由市场决定，政府不必限价限购。']]}
+  ]},
+ {name:'分配福利',neg:'平等优先',pos:'效率优先',
+  bands:['平等对你很重要。你支持用累进税、遗产税和强有力的劳动保护去缩小差距，认为基本的教育、医疗和养老应当人人一样。','你认为差距需要管，政府应当做再分配、保护劳动者，但并不追求完全拉平。','你在公平和效率之间比较平衡，既不主张大规模再分配，也不认为差距可以放任不管。','你更看重效率和个人责任，认为保障应当兜底而不是拉平，对高税收和严格的劳动管制比较警惕。','你认为收入差别主要反映努力和能力，再分配和高福利会伤害增长。保障只应当留给最困难的人，其余靠个人和家庭。'],
+  facets:[
+   {name:'税收与再分配',items:[[-1,'应当对高收入者征更重的税，用来缩小贫富差距。'],[1,'贫富差距是市场竞争的正常结果，不需要刻意去拉平。'],[-1,'应当开征遗产税，防止财富一代代固化。'],[1,'降低税负、让企业和个人多留些钱，比政府拿去再分配更好。']]},
+   {name:'劳动者权益',items:[[-1,'应当严格执行八小时工作制，哪怕企业成本因此上升。'],[1,'企业应当有权按经营需要自由裁员。'],[-1,'工人应当有权自己组织起来，和资方集体谈判。'],[1,'加班和高强度工作是个人自愿的选择，法律不必过多干涉。']]},
+   {name:'公共服务与保障',items:[[-1,'教育和医疗不应当市场化，应当主要由公立机构免费或者低价提供。'],[1,'福利太好会养懒人，保障只应当覆盖最困难的人。'],[-1,'养老和医疗应当全国统一标准，城乡和地区之间不该有差别。'],[1,'养老主要应当靠个人储蓄和家庭，而不是靠国家。']]}
+  ]},
+ {name:'政治权力',neg:'集中权威',pos:'制衡自由',
+  bands:['你认为集中统一的领导是中国稳定和发展的前提。对言论的管理、对社会的管控，在你看来是必要的代价，西方的那套制度不适合中国。','你更看重秩序和国家能力，认可集中领导的作用，对快速放开政治和言论空间有顾虑。','你在权威和制衡之间没有明显的偏向，可能觉得两边各有道理，也可能是看具体问题。','你倾向于权力要受约束：司法应当独立，言论空间应当更大，公民权利应当有保障。','你是明确的宪政和自由取向：权力必须关进法律的笼子，领导人应当由选举产生，表达和结社这些权利不能因为稳定的理由被压缩。'],
+  facets:[
+   {name:'权力结构',items:[[-1,'中国这样的大国，需要强有力的集中领导才能保持稳定和发展。'],[1,'各级领导人应当由竞争性的选举产生。'],[-1,'西方式的多党竞争制度不适合中国国情。'],[1,'法院应当独立审判，不受党政机关干预。']]},
+   {name:'言论与信息',items:[[-1,'为了社会稳定，对网络言论进行管理是必要的。'],[1,'媒体应当可以自由地批评政府和官员。'],[-1,'对历史和重大事件，应当有统一的权威说法，不宜任由各种解读流传。'],[1,'即使是错误甚至令人反感的观点，也应当有公开表达的权利。']]},
+   {name:'个人与国家',items:[[-1,'国家安全和个人隐私发生冲突时，应当优先保障国家安全。'],[1,'公民应当有自由结社、集会和游行的权利。'],[-1,'用实名制、人脸识别这些手段加强社会管理，利大于弊。'],[1,'政府的权力必须受到宪法和法律的严格限制，即使这会降低办事效率。']]}
+  ]},
+ {name:'文化社会',neg:'传统',pos:'多元',
+  bands:['你认同传统的家庭和道德观念，觉得社会需要共同的价值来维系，对个人主义和各种新的生活方式持批评态度。','你比较看重家庭、传统和社会风气，对一些新观念有保留，但不算强硬。','你在传统和多元之间比较中性，有些问题上保守，有些问题上开放。','你倾向于尊重个人选择，婚育、性别、生活方式在你看来主要是私事。','你在文化上是明确的自由派：结不结婚、生不生孩子、爱谁、信什么都是个人的事，法律和舆论都不该替人做主。'],
+  facets:[
+   {name:'家庭、婚育与性别',items:[[-1,'结婚生育是一个人对家庭和社会应尽的责任。'],[1,'不结婚、不生育是个人自由，社会不应当施加压力。'],[-1,'婚姻这类人生大事，子女应当尊重父母的意见。'],[1,'女性在职场和家庭里受到的不平等对待，需要靠制度来纠正。']]},
+   {name:'道德与生活方式',items:[[-1,'文艺作品应当弘扬正面价值，对不良内容要加以限制。'],[1,'同性伴侣应当享有和异性夫妻同等的法律权利。'],[-1,'现在的社会过于强调个人，忽视了集体和家庭。'],[1,'成年人自愿的私人行为，哪怕不合主流道德，法律也不该管。']]},
+   {name:'传统、教育与刑罚',items:[[-1,'学校应当加强传统文化和经典的教育。'],[1,'信不信宗教都是个人的事，学校和政府不应当引导。'],[-1,'对严重的犯罪就该严惩，死刑不能废除。'],[1,'学校教育应当鼓励学生质疑权威，而不是强调服从和纪律。']]}
+  ]},
+ {name:'民族对外',neg:'民族本位',pos:'国际开放',
+  bands:['你的民族立场很鲜明：国家利益和统一高于一切，对西方不信任，主张技术和经济上的自主，也认为中国有自己的标准。','你偏向民族本位，重视主权、自主和国家尊严，对外部世界保持警惕。','你既不特别强调民族立场，也不特别强调融入世界，态度比较务实。','你倾向于开放和合作，认为融入国际规则对中国有利，对民族情绪比较克制。','你是明确的国际主义取向：相信普遍的规则和价值，主张对外开放、少一些对抗，也认为批评自己的国家是正当的。'],
+  facets:[
+   {name:'对外姿态',items:[[-1,'在国际交往中，应当用更强硬的姿态维护国家利益。'],[1,'中国应当更主动地融入现有的国际规则和秩序。'],[-1,'西方国家始终想遏制中国的发展。'],[1,'和美国等西方国家保持良好关系，比争一时的输赢更重要。']]},
+   {name:'经济与技术',items:[[-1,'关键技术必须自主可控，哪怕成本高得多。'],[1,'应当进一步降低关税，扩大进口和外资准入。'],[-1,'应当优先购买国货，买外国产品要考虑国家利益。'],[1,'应当放宽外国人来华工作和定居的限制。']]},
+   {name:'认同与价值',items:[[-1,'国家统一是不容讨论的核心利益，必要时可以使用武力。'],[1,'人权是普遍的价值，不因国家和文化而不同。'],[-1,'中国有自己独特的文明和道路，不需要用外国的标准来衡量。'],[1,'批评本国的问题是爱国的表现，不应当被看作抹黑。']]}
+  ]},
+ {name:'变革态度',neg:'求稳渐进',pos:'求变',
+  bands:['你非常看重稳定。你认为大方向是对的，变化应当由上而下、一步一步来，对任何可能带来动荡的做法都很警惕。','你倾向于渐进：承认有问题，但认为应当稳妥地改，不赞成冒险。','你对变革的快慢没有固定的态度，大概要看改的是什么。','你觉得改革的步子应当更大一些，对现状有不少不满，也认可民间压力的作用。','你认为现有的问题是结构性的，需要尽快做根本的改变。为此你可以接受一些短期的混乱，也不认为人必须服从不公正的规则。'],
+  facets:[
+   {name:'对现状的评价',items:[[-1,'总的来说，中国现在走的路是对的，方向不需要大改。'],[1,'现有体制的很多问题是结构性的，小修小补解决不了。'],[-1,'和几十年前比，普通人的生活已经好了很多，应当珍惜现在的局面。'],[1,'如果不做重大的改革，中国的发展会越来越困难。']]},
+   {name:'速度与风险',items:[[-1,'改革宁可慢一点，也不能冒社会动荡的风险。'],[1,'该改的事就应当尽快改，拖下去代价只会更大。'],[-1,'历史上急剧的变革往往带来灾难，应当引以为戒。'],[1,'为了长远的进步，短期内付出一些混乱的代价是值得的。']]},
+   {name:'推动的途径',items:[[-1,'重大的改变应当由上层有计划地推动，而不是靠民间的压力。'],[1,'普通人通过抗议、请愿表达不满，有助于社会进步。'],[-1,'遇到不合理的规定，个人应当先服从，再通过正常渠道反映。'],[1,'一项规定如果明显不公正，人们有理由不遵守它。']]}
+  ]}
 ];
-var BANK=[
- [[-1,'关系国计民生的重要行业，必须由国有企业掌握。'],[1,'国有企业应当退出一般的竞争性行业。'],[-1,'政府集中资源扶持重点产业，比让市场自己选择更有效。'],[1,'农村土地应当允许农民自由买卖。'],[-1,'粮食、能源这类重要商品的价格应当由政府调控，不能完全交给市场。'],[1,'民营企业在贷款和行业准入上，应当得到和国企完全同等的待遇。'],[-1,'资本的扩张必须受到严格约束，否则会损害社会。'],[1,'政府对企业经营的干预越少越好。'],[-1,'教育和医疗不应当市场化，应当主要由公立机构提供。'],[1,'房价应当主要由市场决定，政府不必限价限购。']],
- [[-1,'应当对高收入者征更重的税，用来缩小贫富差距。'],[1,'贫富差距是市场竞争的正常结果，不需要刻意去拉平。'],[-1,'应当开征遗产税和房产税，防止财富一代代固化。'],[1,'福利太好会养懒人，保障只应当覆盖最困难的人。'],[-1,'养老和医疗应当全国统一标准，城乡和地区之间不该有差别。'],[1,'企业应当有权按经营需要自由裁员。'],[-1,'应当严格执行八小时工作制，哪怕企业成本因此上升。'],[1,'一个人的收入主要取决于自己的努力和能力，而不是社会环境。'],[-1,'工人应当有权自己组织起来，和资方集体谈判。'],[1,'先把经济做大，比怎么分配更重要。']],
- [[-1,'中国这样的大国，需要强有力的集中领导才能保持稳定和发展。'],[1,'法院应当独立审判，不受党政机关干预。'],[-1,'为了社会稳定，对网络言论进行管理是必要的。'],[1,'各级领导人应当由竞争性的选举产生。'],[-1,'西方式的多党竞争制度不适合中国国情。'],[1,'媒体应当可以自由地批评政府和官员。'],[-1,'国家安全和个人隐私发生冲突时，应当优先保障国家安全。'],[1,'公民应当有自由结社、集会和游行的权利。'],[-1,'集中力量办大事的体制，比分权制衡的体制更有效率。'],[1,'政府的权力必须受到宪法和法律的严格限制，即使这会降低办事效率。']],
- [[-1,'学校应当加强传统文化和经典的教育。'],[1,'同性伴侣应当享有和异性夫妻同等的法律权利。'],[-1,'结婚生育是一个人对家庭和社会应尽的责任。'],[1,'不结婚、不生育是个人自由，社会不应当施加压力。'],[-1,'文艺作品应当弘扬正面价值，对不良内容要加以限制。'],[1,'成年人自愿的私人行为，哪怕不合主流道德，法律也不该管。'],[-1,'现在的社会过于强调个人，忽视了集体和家庭。'],[1,'女性在职场和家庭里受到的不平等对待，需要靠制度来纠正。'],[-1,'婚姻这类人生大事，子女应当尊重父母的意见。'],[1,'死刑应当逐步废除。']],
- [[-1,'在国际交往中，应当用更强硬的姿态维护国家利益。'],[1,'中国应当更主动地融入现有的国际规则和秩序。'],[-1,'西方国家始终想遏制中国的发展。'],[1,'人权是普遍的价值，不因国家和文化而不同。'],[-1,'关键技术必须自主可控，哪怕成本高得多。'],[1,'应当进一步降低关税，扩大进口和外资准入。'],[-1,'国家统一是不容讨论的核心利益，必要时可以使用武力。'],[1,'批评本国的问题是爱国的表现，不应当被看作抹黑。'],[-1,'应当优先购买国货，买外国产品要考虑国家利益。'],[1,'应当放宽外国人来华工作和定居的限制。']]
-];
-var SHIFT=[0,3,6,1,4],Q=[];
-for(var r=0;r<10;r++){for(var a=0;a<5;a++){var it=BANK[a][(r+SHIFT[a])%10];Q.push({ax:a,dir:it[0],t:it[1]});}}
-var N=Q.length,KEY='cn-compass-v1',T=15;
 var TYPES={
- '1,1':['市场自由派','主张市场经济和有限政府，看重法治、分权和个人权利。在中国的讨论里，这一路通常被叫作自由派或“右派”。'],
- '-1,1':['社会民主派','既要平等和保障，也要民主和法治。希望用再分配和公共服务去纠正市场，同时把权力管住。常被叫作自由左翼。'],
- '-1,-1':['国家主义左翼','相信强有力的国家应当主导经济、保障平等，对资本和西方模式保持警惕。在中国的讨论里，这一路通常被叫作“左派”。'],
- '1,-1':['新权威主义','支持市场化和经济上的开放，同时认为需要集中而强有力的政府来保证秩序和效率。'],
- '0,1':['温和自由派','经济上不走极端，最在意的是权力受约束、法治和个人自由。'],
- '0,-1':['秩序优先的中间派','经济上不走极端，更看重稳定、秩序和国家能力，对快速的政治变动持保留态度。'],
- '-1,0':['温和左翼','看重平等、保障和国家对经济的调节，在政治权力的问题上不偏向哪一端。'],
- '1,0':['温和市场派','支持市场化改革和效率，在政治权力的问题上不偏向哪一端。'],
- '0,0':['中间派','在经济和政治两条主轴上都靠近中点，倾向于就事论事，而不是按阵营表态。']
+ '1,1':{n:'市场自由派',d:'你在经济上相信市场，在政治上要求限制权力。这两条在你这里是一回事：产权、契约和法治既是市场经济的基础，也是个人自由的保障。',v:'这类人常见的主张：国企退出竞争领域，减少审批和管制，司法独立，放宽言论，融入国际规则。在中国的讨论里，这一路通常被叫作自由派或“右派”。',r:'和新权威主义的区别在于，你不接受“先集中权力把经济搞好”的说法。和社会民主派的区别在于，你对再分配和大政府更警惕。'},
+ '-1,1':{n:'社会民主派',d:'你既要平等，也要自由。你认为市场需要被再分配和公共服务纠正，同时权力必须受到民主和法治的约束。',v:'这类人常见的主张：累进税和社会保障，劳动者的组织权，公共教育和医疗，同时要司法独立和言论自由。在中国，这一路常被叫作自由左翼，人数不多，但在年轻人里有影响。',r:'和国家主义左翼的区别在于，你不信任不受约束的国家。和市场自由派的区别在于，你认为放任的市场会制造不平等。'},
+ '-1,-1':{n:'国家主义左翼',d:'你相信强有力的国家应当主导经济、保障平等，并对资本和西方模式保持警惕。在你看来，集中的权力是实现公平、抵御外部压力的条件。',v:'这类人常见的主张：做强国企，约束资本，加强再分配，维护集中统一的领导，警惕西方的制度输出。在中国的讨论里，这一路通常被叫作“左派”，其中又分新左派和怀念毛时代的老左派。',r:'和社会民主派的区别在于，你认为分权制衡和多党竞争不适合中国。和新权威主义的区别在于，你不认同把经济交给市场和资本。'},
+ '1,-1':{n:'新权威主义',d:'你支持市场化和经济开放，同时认为这需要一个集中而强有力的政府来保驾护航。在你看来，秩序和效率是发展的前提，政治上的放开可以往后放。',v:'这类人常见的主张：保护产权和民营经济，政府少干预企业，但保持集中领导，对言论和社会的管理不宜放松。这一路在上世纪八九十年代被称为新权威主义，也常被拿来和东亚的发展模式相比。',r:'和市场自由派的区别在于，你不认为市场经济必须配上分权制衡。和国家主义左翼的区别在于，你在经济上相信市场而不是国家。'},
+ '0,1':{n:'温和自由派',d:'你在经济上不走极端，最在意的是权力受约束、法治和个人自由。对你来说，制度是否公正、权力是否受限，比经济上偏国家还是偏市场更要紧。',v:'这类人常见的主张：司法独立，依法行政，扩大言论空间，经济上市场和保障都要。在中国，这类人常被归入自由派，但和主张彻底市场化的那一支不完全一样。',r:'经济上往市场一侧多走一步是市场自由派，往平等一侧多走一步是社会民主派，你站在两者中间。'},
+ '0,-1':{n:'秩序优先的中间派',d:'你在经济上不走极端，更看重稳定、秩序和国家能力。你未必反对改革，但对快速的政治变动持保留态度。',v:'这类人常见的主张：保持集中领导，加强治理，经济上市场和国家各有用处。这大概是最接近主流公众的一种位置。',r:'经济上往国家和平等一侧多走一步是国家主义左翼，往市场一侧多走一步是新权威主义。'},
+ '-1,0':{n:'温和左翼',d:'你看重平等、保障和国家对经济的调节，但在政治权力的问题上不偏向哪一端。你关心的主要是谁得到了什么。',v:'这类人常见的主张：加强再分配和劳动保护，公共服务均等，对资本加以约束。',r:'政治上往自由一侧多走一步是社会民主派，往权威一侧多走一步是国家主义左翼。'},
+ '1,0':{n:'温和市场派',d:'你支持市场化改革和效率，但在政治权力的问题上不偏向哪一端。你关心的主要是经济怎么搞好。',v:'这类人常见的主张：扩大市场准入，保护民营经济，减少行政干预，控制福利开支。在中国，这类人常被叫作改革派或市场派。',r:'政治上往自由一侧多走一步是市场自由派，往权威一侧多走一步是新权威主义。'},
+ '0,0':{n:'中间派',d:'你在经济和政治两条主轴上都靠近中点。这可能是因为你就事论事、不按阵营表态，也可能是因为不少题你选了说不清。',v:'中间派没有一套固定的主张，要看你在后面几条轴上的位置。',r:'往任何一个方向多走一步，都会落进相邻的类型，下面各条轴的分数比这个名字更能说明你。'}
 };
-var S={a:[],i:0};
+var SH=[0,3,6,9,1,4],SHQ=[0,3,1,4,2,5],KEY='cn-compass-v2',T=15;
+function build(mode){
+  var per=mode==='quick'?6:12,sh=mode==='quick'?SHQ:SH,out=[];
+  for(var r=0;r<per;r++){for(var a=0;a<6;a++){
+    var slot=(r+sh[a])%per,f=slot%3,k=Math.floor(slot/3),it=AX[a].facets[f].items[k];
+    out.push({id:a+'-'+f+'-'+k,ax:a,fa:f,dir:it[0],t:it[1]});
+  }}
+  return out;
+}
+var S={m:'full',a:{},i:0},L=build('full'),N=L.length;
 function $(id){return document.getElementById(id)}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls){e.className=cls}if(txt!==undefined){e.textContent=txt}return e}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Array.isArray(d.a)){return {a:d.a.slice(0,N),i:Math.min(Math.max(d.i|0,0),N-1)}}}catch(e){}return null}
-function answered(){var c=0;for(var k=0;k<N;k++){if(typeof S.a[k]==='number'){c++}}return c}
+function norm(d){
+  if(!d||typeof d.a!=='object'||d.a===null){return null}
+  var m=d.m==='quick'?'quick':'full',n=m==='quick'?36:72;
+  return {m:m,a:d.a,i:Math.min(Math.max(d.i|0,0),n-1)};
+}
+function load(){try{return norm(JSON.parse(localStorage.getItem(KEY)||'null'))}catch(e){return null}}
+function setMode(m){S.m=m;L=build(m);N=L.length}
+function val(q){var v=S.a[q.id];return typeof v==='number'?v:null}
+function answered(){var c=0;L.forEach(function(q){if(val(q)!==null){c++}});return c}
 function scores(){
-  var sum=[0,0,0,0,0];
-  for(var k=0;k<N;k++){if(typeof S.a[k]==='number'){sum[Q[k].ax]+=Q[k].dir*S.a[k]}}
-  return sum.map(function(v){return Math.round(v/20*100)});
+  var sum=[0,0,0,0,0,0],cnt=[0,0,0,0,0,0];
+  L.forEach(function(q){cnt[q.ax]++;var v=val(q);if(v!==null){sum[q.ax]+=q.dir*v}});
+  return sum.map(function(v,k){return Math.round(v/(2*cnt[k])*100)});
+}
+function facetScores(a){
+  var sum=[0,0,0],cnt=[0,0,0];
+  L.forEach(function(q){if(q.ax===a){cnt[q.fa]++;var v=val(q);if(v!==null){sum[q.fa]+=q.dir*v}}});
+  return sum.map(function(v,k){return Math.round(v/(2*cnt[k])*100)});
 }
 function code(sc){return 'r-'+sc.map(function(v){return ('00'+(v+100)).slice(-3)}).join('-')}
 function parse(h){
-  var m=/^#?r-(\d{3})-(\d{3})-(\d{3})-(\d{3})-(\d{3})$/.exec(h||'');
+  var m=/^#?r-(\d{3})-(\d{3})-(\d{3})-(\d{3})-(\d{3})-(\d{3})$/.exec(h||'');
   if(!m){return null}
-  var out=[];for(var k=1;k<=5;k++){var v=parseInt(m[k],10)-100;if(v<-100||v>100){return null}out.push(v)}
+  var out=[];for(var k=1;k<=6;k++){var v=parseInt(m[k],10)-100;if(v<-100||v>100){return null}out.push(v)}
   return out;
 }
-function show(v){['start','quiz','result'].forEach(function(n){$('v-'+n).hidden=(n!==v)});window.scrollTo(0,0)}
+function show(v){['start','quiz','result'].forEach(function(n){$('v-'+n).hidden=(n!==v)});try{window.scrollTo(0,0)}catch(e){}}
 function word(v,neg,pos){var m=Math.abs(v);if(m<T){return '居中'}return (m<40?'略偏':(m<70?'偏':'明显偏'))+(v<0?neg:pos)}
-function sign(v){return (v>0?'+':'')+v}
+function sign(v){return v>0?'+'+v:(v<0?'−'+Math.abs(v):'0')}
+function band(v){return v<=-50?0:(v<=-T?1:(v<T?2:(v<50?3:4)))}
+function mine(sc){return answered()===N&&code(scores())===code(sc)}
 
 function renderStart(){
-  var n=answered();
-  var res=$('btn-resume');
-  if(n>0&&n<N){res.hidden=false;res.textContent='继续上次（已答 '+n+' 题）';$('btn-start').textContent='从头开始'}
-  else if(n===N){res.hidden=false;res.textContent='查看上次结果';$('btn-start').textContent='重新测试'}
-  else{res.hidden=true;$('btn-start').textContent='开始测试'}
+  var n=answered(),res=$('btn-resume');
+  if(n>0&&n<N){res.hidden=false;res.textContent='继续上次（'+(S.m==='quick'?'快速版':'完整版')+'，已答 '+n+' 题）'}
+  else if(n===N){res.hidden=false;res.textContent='查看上次的结果'}
+  else{res.hidden=true}
   show('start');
 }
 function renderQ(){
-  var q=Q[S.i];
+  var q=L[S.i];
   $('q-count').textContent=(S.i+1)+' / '+N;
   $('q-axis').textContent=AX[q.ax].name;
   $('q-bar').style.width=Math.round(answered()/N*100)+'%';
   $('q-text').textContent=q.t;
-  var cur=S.a[S.i];
-  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.setAttribute('aria-pressed',String(typeof cur==='number'&&cur===+b.getAttribute('data-v')))});
+  var cur=val(q);
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.setAttribute('aria-pressed',String(cur!==null&&cur===+b.getAttribute('data-v')))});
   $('btn-back').style.visibility=S.i>0?'visible':'hidden';
   show('quiz');
 }
 var busy=false;
 function pick(v){
   if(busy){return}
-  S.a[S.i]=v;save();
+  S.a[L[S.i].id]=v;save();
   Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.setAttribute('aria-pressed',String(v===+b.getAttribute('data-v')))});
   busy=true;
   setTimeout(function(){
     busy=false;
     if(S.i<N-1){S.i++;save();renderQ()}
     else if(answered()===N){finish()}
-    else{for(var k=0;k<N;k++){if(typeof S.a[k]!=='number'){S.i=k;break}}renderQ()}
+    else{for(var k=0;k<N;k++){if(val(L[k])===null){S.i=k;break}}renderQ()}
   },130);
 }
 function finish(){
   var sc=scores();
   renderResult(sc,true);
   try{location.hash=code(sc)}catch(e){}
+}
+function typeOf(sc){
+  var x=Math.round((sc[0]+sc[1])/2),y=sc[2];
+  var ex=x<=-T?-1:(x>=T?1:0),py=y<=-T?-1:(y>=T?1:0);
+  return {x:x,y:y,t:TYPES[ex+','+py]};
+}
+function combos(sc,own){
+  var A=sc[0],B=sc[1],C=sc[2],D=sc[3],E=sc[4],F=sc[5],x=Math.round((A+B)/2),out=[];
+  if(A>=T&&B<=-T){out.push('要市场，也要再分配。你希望由市场来创造财富，再用税收和公共服务来分享，这接近所谓的社会市场经济。')}
+  if(A<=-T&&B>=T){out.push('主张国家主导经济，却不强调再分配。你看重的是国家的力量和发展，而不是平等本身。')}
+  if(C>=T&&D<=-T){out.push('政治上要自由，文化上偏传统。这在中国的自由派里相当常见，和西方把自由派等同于文化进步派的情况不一样。')}
+  if(C<=-T&&D>=T){out.push('政治上认可权威，生活方式上却很开放。你把公共秩序和个人私事分得很开。')}
+  if(C>=T&&E<=-T){out.push('对内要求限制权力，对外坚持民族立场。在你看来，自由和国家利益并不冲突。')}
+  if(C<=-T&&E>=T){out.push('认可集中领导，同时主张对外开放合作，近于务实的发展优先论。')}
+  if(F<=-T&&(Math.abs(x)>=40||Math.abs(C)>=40)){out.push('立场鲜明，却主张稳妥渐进。你清楚自己想要什么，只是不愿意为它冒动荡的风险。')}
+  if(F>=40&&C>=T){out.push('你既要制衡和自由，又希望变得快一些，属于比较急切的改革取向。')}
+  if(F>=40&&C<=-T&&x<=-T){out.push('你对现状的不满是从左边来的：觉得改革走偏了，需要大幅度纠正。')}
+  if(F>=T&&Math.abs(x)<T&&Math.abs(C)<T){out.push('你希望有比较大的改变，但在经济和政治两条主轴上都没有明确的方向，可能是对现状不满，却还没想好要什么。')}
+  if(own&&S.m==='full'){
+    for(var a=0;a<6;a++){
+      var fs=facetScores(a),hi=0,lo=0;
+      for(var k=1;k<3;k++){if(fs[k]>fs[hi]){hi=k}if(fs[k]<fs[lo]){lo=k}}
+      if(fs[hi]-fs[lo]>=75&&fs[hi]>=T&&fs[lo]<=-T){
+        out.push('在“'+AX[a].name+'”这条轴内部你并不一致：在'+AX[a].facets[hi].name+'上'+word(fs[hi],AX[a].neg,AX[a].pos)+'，在'+AX[a].facets[lo].name+'上'+word(fs[lo],AX[a].neg,AX[a].pos)+'。总分把这两头抵消了一部分。');
+      }
+    }
+  }
+  if(!out.length){out.push('各条轴之间没有特别需要说明的组合，你的位置比较“标准”。')}
+  return out;
 }
 function summary(sc,type){
   var lines=['我的中国政治坐标：'+type];
@@ -277,52 +379,84 @@ function summary(sc,type){
 var shown='';
 function renderResult(sc,own){
   shown=code(sc);
-  var x=Math.round((sc[0]+sc[1])/2),y=sc[2];
-  var ex=x<=-T?-1:(x>=T?1:0),py=y<=-T?-1:(y>=T?1:0);
-  var ty=TYPES[ex+','+py];
+  var ty=typeOf(sc),x=ty.x,y=ty.y,t=ty.t;
   $('r-shared').hidden=own;
-  $('r-type').textContent=ty[0];
-  $('r-desc').textContent=ty[1];
+  $('r-type').textContent=t.n;
+  $('r-desc').textContent=t.d;
+  $('r-views').textContent=t.v;
+  $('r-near').textContent=t.r;
   var cn=Math.round((sc[0]+sc[2]+sc[4])/3);
-  $('r-cn').textContent=(Math.abs(cn)<T?'大致居中':(cn>0?(cn<40?'略偏右':'偏右'):(cn>-40?'略偏左':'偏左')))+'。在中国，“右”指亲市场、要法治、主张开放，“左”指重国家、重平等和民族立场。';
-  $('r-west').textContent='经济上'+word(x,'左','右')+'，政治上'+word(y,'权威','自由')+'，文化上'+word(sc[3],'保守','进步')+'。';
-  var mods=[];
-  mods.push(Math.abs(sc[3])<20?'文化议题上没有明显倾向':(sc[3]>0?'文化上偏向多元和个人选择':'文化上偏向传统和家庭'));
-  mods.push(Math.abs(sc[4])<20?'对外态度居中':(sc[4]>0?'对外偏向开放和国际合作':'对外偏向民族本位和自主'));
-  mods.push(Math.abs(sc[0]-sc[1])>=40?(sc[0]>sc[1]?'要市场，也要再分配':'国家主导经济，但不太强调再分配'):'经济体制和分配上的态度比较一致');
-  $('r-mod').textContent=mods.join('；')+'。';
+  $('r-cn').textContent=(Math.abs(cn)<T?'大致居中':(cn>0?(cn<40?'略偏右':'偏右'):(cn>-40?'略偏左':'偏左')))+'。在中国，“右”指亲市场、要法治、主张开放，“左”指重国家、重平等和民族立场。这个判断取的是经济体制、政治权力、民族对外三条轴的平均。';
+  $('r-west').textContent='经济上'+word(x,'左','右')+'，政治上'+word(y,'权威','自由')+'，文化上'+word(sc[3],'保守','进步')+'。西方的左右主要看经济和文化，和中国的用法大致相反。';
+  $('r-change').textContent=word(sc[5],'求稳','求变')+'。这条轴不分左右，说的是你希望变化来得多快、由谁来推动。';
+  if(own){
+    var neu=0;L.forEach(function(q){if(val(q)===0){neu++}});
+    var p=Math.round(neu/N*100),c;
+    if(S.m==='quick'){c='快速版，每条轴只有 6 道题，分数的误差比较大，适合看个大概。'+(neu?'其中 '+neu+' 道题你选了说不清。':'')}
+    else if(p<20){c='完整版 72 道题，'+(neu?'其中 '+neu+' 道你选了说不清，':'没有选说不清的，')+'结果比较可靠。'}
+    else if(p<35){c='完整版 72 道题，其中 '+neu+' 道你选了说不清，结果可以参考。'}
+    else{c='有 '+neu+' 道题你选了说不清，占 '+p+'%。这会把各条轴的分数往中间拉，结果的把握比较低。'}
+    $('r-conf').textContent=c;
+  }
+  $('r-conf-row').hidden=!own;
+
   var box=$('r-axes');box.textContent='';
   sc.forEach(function(v,k){
-    var d=document.createElement('div');d.className='ax';
-    var top=document.createElement('div');top.className='top';
-    var b=document.createElement('b');b.textContent=AX[k].name;
-    var s=document.createElement('span');s.textContent=word(v,AX[k].neg,AX[k].pos)+'　'+sign(v);
-    top.appendChild(b);top.appendChild(s);
-    var tr=document.createElement('div');tr.className='track';
-    var dot=document.createElement('i');dot.style.left=((v+100)/2)+'%';tr.appendChild(dot);
-    var ends=document.createElement('div');ends.className='ends';
-    var l=document.createElement('span');l.textContent=AX[k].neg;var rr=document.createElement('span');rr.textContent=AX[k].pos;
-    ends.appendChild(l);ends.appendChild(rr);
-    d.appendChild(top);d.appendChild(tr);d.appendChild(ends);box.appendChild(d);
+    var d=el('div','ax'),top=el('div','top');
+    top.appendChild(el('b','',AX[k].name));
+    top.appendChild(el('span','',word(v,AX[k].neg,AX[k].pos)+'　'+sign(v)));
+    var tr=el('div','track'),dot=el('i');dot.style.left=((v+100)/2)+'%';tr.appendChild(dot);
+    var ends=el('div','ends');ends.appendChild(el('span','',AX[k].neg));ends.appendChild(el('span','',AX[k].pos));
+    d.appendChild(top);d.appendChild(tr);d.appendChild(ends);
+    d.appendChild(el('p','say',AX[k].bands[band(v)]));
+    if(own&&S.m==='full'){
+      var fs=facetScores(k),fac=el('div','fac');
+      fs.forEach(function(fv,fk){
+        var row=el('div');
+        row.appendChild(el('span','',AX[k].facets[fk].name));
+        row.appendChild(el('span','',word(fv,AX[k].neg,AX[k].pos)+'　'+sign(fv)));
+        fac.appendChild(row);
+      });
+      d.appendChild(fac);
+    }
+    box.appendChild(d);
   });
-  $('r-text').value=summary(sc,ty[0]);$('r-text').hidden=true;$('r-copied').hidden=true;
+
+  var cb=$('r-combos');cb.textContent='';
+  combos(sc,own).forEach(function(s){cb.appendChild(el('li','',s))});
+
+  var sw=$('r-strong-wrap'),sl=$('r-strong');sl.textContent='';
+  sw.hidden=!own;
+  if(own){
+    var strong=L.filter(function(q){return Math.abs(val(q))===2});
+    if(!strong.length){sl.appendChild(el('li','','你没有选过“非常同意”或“非常反对”，态度普遍比较温和。'))}
+    else{
+      strong.slice(0,8).forEach(function(q){
+        var li=el('li');li.appendChild(el('b','',val(q)>0?'非常同意':'非常反对'));li.appendChild(document.createTextNode(q.t));sl.appendChild(li);
+      });
+      if(strong.length>8){sl.appendChild(el('li','muted','另外还有 '+(strong.length-8)+' 道题你也选了最强的态度。'))}
+    }
+  }
+
+  $('r-text').value=summary(sc,t.n);$('r-text').hidden=true;$('r-copied').hidden=true;
   $('btn-again').textContent=own?'重新测试':'我也测一遍';
   var mark=$('r-mark');mark.style.transform='translate(0px,0px)';
   show('result');
   var dx=(x/100*130).toFixed(1),dy=(y/100*130).toFixed(1);
   requestAnimationFrame(function(){requestAnimationFrame(function(){mark.style.transform='translate('+dx+'px,'+dy+'px)'})});
 }
-function begin(fresh){
+function begin(mode){
   shown='';
-  if(fresh){S={a:[],i:0};save()}
-  else{for(var k=0;k<N;k++){if(typeof S.a[k]!=='number'){S.i=k;break}}}
+  if(mode){S={m:mode,a:{},i:0};setMode(mode);save()}
+  else{for(var k=0;k<N;k++){if(val(L[k])===null){S.i=k;break}}}
   if(location.hash){try{location.hash=''}catch(e){}}
   renderQ();
 }
 
-$('btn-start').onclick=function(){begin(true)};
-$('btn-resume').onclick=function(){if(answered()===N){finish()}else{begin(false)}};
-$('btn-again').onclick=function(){begin(true)};
+$('btn-full').onclick=function(){begin('full')};
+$('btn-quick').onclick=function(){begin('quick')};
+$('btn-resume').onclick=function(){if(answered()===N){finish()}else{begin(null)}};
+$('btn-again').onclick=function(){shown='';if(location.hash){try{location.hash=''}catch(e){}}S={m:S.m,a:{},i:0};save();renderStart()};
 $('btn-back').onclick=function(){if(S.i>0){S.i--;save();renderQ()}};
 $('btn-quit').onclick=function(){renderStart()};
 Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.onclick=function(){pick(+b.getAttribute('data-v'))}});
@@ -341,21 +475,21 @@ window.addEventListener('hashchange',function(){
   var sc=parse(location.hash);
   if(sc){
     if(!$('v-result').hidden&&shown===code(sc)){return}
-    renderResult(sc,answered()===N&&code(scores())===code(sc));
+    renderResult(sc,mine(sc));
   }
   else if(!$('v-result').hidden){renderStart()}
 });
 
 function start(data){
-  var d=(data&&Array.isArray(data.a))?data:load();
-  if(d){S={a:d.a.slice(0,N),i:Math.min(Math.max(d.i|0,0),N-1)}}
+  var d=norm(data)||load();
+  if(d){S=d;setMode(d.m)}
   var sc=parse(location.hash);
-  if(sc){renderResult(sc,answered()===N&&code(scores())===code(sc))}
+  if(sc){renderResult(sc,mine(sc))}
   else if(data&&data.v==='quiz'){renderQ()}
   else{renderStart()}
 }
 var hot=window.claude&&window.claude.hot;
-if(hot&&hot.snapshot){hot.snapshot(function(){return {a:S.a,i:S.i,v:$('v-quiz').hidden?'other':'quiz'}})}
+if(hot&&hot.snapshot){hot.snapshot(function(){return {m:S.m,a:S.a,i:S.i,v:$('v-quiz').hidden?'other':'quiz'}})}
 if(hot&&hot.ready){hot.ready(start)}else{start((hot&&hot.data)||{})}
 })();
 </script>
