@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中国政治坐标测试</title>
+<style>
+:root{
+  /* layout: one narrow survey-sheet column; the coordinate plane is the only illustration, the red seal the only loud element */
+  --paper:#EDF0EA; --card:#F7F9F5; --ink:#17302B; --muted:#5A6D67; --line:#C8D1CA;
+  --teal:#2B6A5E; --wash:#DCE8E2; --seal:#C23A2E;
+  --display:"ZCOOL XiaoWei","Songti SC","STSong","SimSun",serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1816; --card:#162220; --ink:#E3EAE6; --muted:#8DA19A; --line:#2B3B37;
+    --teal:#62B5A3; --wash:#1D302C; --seal:#E5594B; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1816; --card:#162220; --ink:#E3EAE6; --muted:#8DA19A; --line:#2B3B37;
+  --teal:#62B5A3; --wash:#1D302C; --seal:#E5594B; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-text-size-adjust:100%}
+main{max-width:620px;margin:0 auto;padding:28px 20px 56px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:38px;line-height:1.15;letter-spacing:.04em}
+h2{font-size:22px;line-height:1.35}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:13px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:20px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;cursor:pointer;border-radius:6px}
+button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.btn{min-height:48px;padding:0 22px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-weight:500}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.text{border:none;background:none;padding:0 4px;color:var(--muted);min-height:44px}
+
+/* coordinate plane */
+.plane{width:100%;max-width:340px;display:block}
+.plane .grid{stroke:var(--line);stroke-width:1}
+.plane .axis{stroke:var(--ink);stroke-width:1.2}
+.plane .frame{fill:var(--card);stroke:var(--line)}
+.plane text{font-family:var(--body);font-size:10.5px;fill:var(--muted)}
+.plane text.end{fill:var(--ink);font-size:11px;font-weight:500}
+.plane .dot{fill:var(--seal)}
+.plane .ring{fill:none;stroke:var(--seal);stroke-width:1.2;opacity:.45}
+.plane .mark{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion:reduce){.plane .mark{transition:none}}
+
+/* start */
+.hero{display:flex;flex-direction:column;gap:18px}
+.meta{font-size:13px;color:var(--muted);letter-spacing:.02em}
+.axes{border-top:1px solid var(--line)}
+.axes div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.axes b{font-weight:500}
+.axes span{color:var(--muted);text-align:right}
+
+/* quiz */
+.bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .25s}
+.qmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.qtext{font-family:var(--display);font-size:24px;line-height:1.5;min-height:108px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{min-height:50px;padding:0 16px;text-align:left;border:1px solid var(--line);background:var(--card);display:flex;justify-content:space-between;align-items:center}
+.opt kbd{font:inherit;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--wash)}
+@media (hover:hover){.opt:hover{border-color:var(--teal)}}
+
+/* result */
+.seal{align-self:flex-start;font-family:var(--display);font-size:30px;line-height:1.2;color:var(--seal);border:2px solid var(--seal);outline:1px solid var(--seal);outline-offset:3px;padding:8px 16px;border-radius:3px;transform:rotate(-2.5deg);letter-spacing:.08em;margin:6px 0 4px 4px}
+.note{background:var(--wash);border-radius:6px;padding:12px 14px;font-size:14px}
+.read{border-top:1px solid var(--line)}
+.read div{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.read b{flex:0 0 5.5em;font-weight:500;color:var(--muted)}
+.ax{display:flex;flex-direction:column;gap:6px}
+.ax .top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.ax .top b{font-weight:500}
+.ax .top span{color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.track{position:relative;height:8px;border-radius:4px;background:var(--card);border:1px solid var(--line)}
+.track::before{content:"";position:absolute;left:50%;top:-4px;width:1px;height:14px;background:var(--muted)}
+.track i{position:absolute;top:-5px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--teal);border:2px solid var(--paper)}
+.ax .ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+hr{border:none;border-top:1px solid var(--line);margin:4px 0}
+@media (max-width:400px){h1{font-size:32px}.qtext{font-size:21px}.seal{font-size:26px}}
+</style>
+</head>
+<body>
+<main>
+<noscript><p class="note" style="margin-bottom:20px">这个页面要运行脚本才能答题，你现在用的预览方式不支持。请用 Safari、Chrome 这类浏览器打开它。</p></noscript>
+
+<section id="v-start" class="stack">
+  <div class="hero">
+    <p class="meta">五条轴 · 50 道题 · 约 8 分钟</p>
+    <h1>中国政治坐标</h1>
+    <p>对一句话表态，同意还是反对。答完之后，你会看到自己在国家与市场、平等与效率、权威与自由、传统与多元、民族与开放这五条轴上各站在哪里。</p>
+    <svg class="plane" viewBox="0 0 300 300" role="img" aria-label="经济和政治两条主轴构成的坐标图，四个象限分别是国家主义左翼、新权威主义、社会民主派和市场自由派">
+      <rect class="frame" x="20" y="20" width="260" height="260"/>
+      <g class="grid"><line x1="85" y1="20" x2="85" y2="280"/><line x1="215" y1="20" x2="215" y2="280"/><line x1="20" y1="85" x2="280" y2="85"/><line x1="20" y1="215" x2="280" y2="215"/></g>
+      <g class="axis"><line x1="20" y1="150" x2="280" y2="150"/><line x1="150" y1="20" x2="150" y2="280"/></g>
+      <text x="85" y="58" text-anchor="middle">国家主义左翼</text><text x="215" y="58" text-anchor="middle">新权威主义</text>
+      <text x="85" y="250" text-anchor="middle">社会民主派</text><text x="215" y="250" text-anchor="middle">市场自由派</text>
+      <text class="end" x="150" y="14" text-anchor="middle">权威</text><text class="end" x="150" y="295" text-anchor="middle">自由</text>
+      <text class="end" x="24" y="145">国家·平等</text><text class="end" x="276" y="145" text-anchor="end">市场·效率</text>
+      <circle class="ring" cx="150" cy="150" r="9"/><circle class="dot" cx="150" cy="150" r="4.5"/>
+    </svg>
+    <div class="row">
+      <button class="btn" id="btn-start" type="button">开始测试</button>
+      <button class="btn ghost" id="btn-resume" type="button" hidden>继续上次</button>
+    </div>
+    <p class="small muted">不记名。答案只留在你自己的浏览器里，不会上传到任何地方。</p>
+  </div>
+  <div class="axes" aria-label="五条轴">
+    <div><b>经济体制</b><span>国家主导 ↔ 市场主导</span></div>
+    <div><b>分配福利</b><span>平等优先 ↔ 效率优先</span></div>
+    <div><b>政治权力</b><span>集中权威 ↔ 制衡自由</span></div>
+    <div><b>文化社会</b><span>传统 ↔ 多元</span></div>
+    <div><b>民族对外</b><span>民族本位 ↔ 国际开放</span></div>
+  </div>
+  <p class="small muted">“左”和“右”在中国和西方的含义大致相反，结果页两种说法都会给。这是一份自测工具，不是学术量表。每条轴 10 道题，正反两个方向各 5 道。</p>
+</section>
+
+<section id="v-quiz" class="stack" hidden>
+  <div class="stack" style="gap:8px">
+    <div class="qmeta"><span id="q-count">1 / 50</span><span id="q-axis"></span></div>
+    <div class="bar"><i id="q-bar"></i></div>
+  </div>
+  <p class="qtext" id="q-text" aria-live="polite"></p>
+  <div class="opts" id="opts">
+    <button class="opt" id="opt0" type="button" data-v="2"><span>非常同意</span><kbd>1</kbd></button>
+    <button class="opt" id="opt1" type="button" data-v="1"><span>比较同意</span><kbd>2</kbd></button>
+    <button class="opt" id="opt2" type="button" data-v="0"><span>说不清</span><kbd>3</kbd></button>
+    <button class="opt" id="opt3" type="button" data-v="-1"><span>比较反对</span><kbd>4</kbd></button>
+    <button class="opt" id="opt4" type="button" data-v="-2"><span>非常反对</span><kbd>5</kbd></button>
+  </div>
+  <div class="row" style="justify-content:space-between">
+    <button class="btn text" id="btn-back" type="button">← 上一题</button>
+    <button class="btn text" id="btn-quit" type="button">回到首页</button>
+  </div>
+</section>
+
+<section id="v-result" class="stack" hidden>
+  <p class="note" id="r-shared" hidden>这是别人分享的一份结果。想知道自己的位置，可以自己测一遍。</p>
+  <p class="meta">你的位置</p>
+  <div class="seal" id="r-type"></div>
+  <p id="r-desc"></p>
+  <div class="read">
+    <div><b>中国的说法</b><span id="r-cn"></span></div>
+    <div><b>西方的说法</b><span id="r-west"></span></div>
+    <div><b>另外</b><span id="r-mod"></span></div>
+  </div>
+  <svg class="plane" id="r-plane" viewBox="0 0 300 300" role="img" aria-label="你在经济和政治坐标图上的位置">
+    <rect class="frame" x="20" y="20" width="260" height="260"/>
+    <g class="grid"><line x1="85" y1="20" x2="85" y2="280"/><line x1="215" y1="20" x2="215" y2="280"/><line x1="20" y1="85" x2="280" y2="85"/><line x1="20" y1="215" x2="280" y2="215"/></g>
+    <g class="axis"><line x1="20" y1="150" x2="280" y2="150"/><line x1="150" y1="20" x2="150" y2="280"/></g>
+    <text x="85" y="40" text-anchor="middle">国家主义左翼</text><text x="215" y="40" text-anchor="middle">新权威主义</text>
+    <text x="85" y="270" text-anchor="middle">社会民主派</text><text x="215" y="270" text-anchor="middle">市场自由派</text>
+    <text class="end" x="150" y="14" text-anchor="middle">权威</text><text class="end" x="150" y="295" text-anchor="middle">自由</text>
+    <text class="end" x="24" y="145">国家·平等</text><text class="end" x="276" y="145" text-anchor="end">市场·效率</text>
+    <g class="mark" id="r-mark"><circle class="ring" cx="150" cy="150" r="10"/><circle class="dot" cx="150" cy="150" r="5.5"/></g>
+  </svg>
+  <h2>五条轴的得分</h2>
+  <div class="stack" id="r-axes" style="gap:18px"></div>
+  <p class="small muted">分数从 −100 到 +100，0 是中点。横轴取经济体制和分配福利两项的平均，纵轴是政治权力。</p>
+  <hr>
+  <div class="row">
+    <button class="btn" id="btn-copy" type="button">复制结果</button>
+    <button class="btn ghost" id="btn-again" type="button">重新测试</button>
+  </div>
+  <p class="small muted" id="r-copied" hidden></p>
+  <textarea id="r-text" rows="9" readonly hidden aria-label="结果文字"></textarea>
+  <p class="small muted">这份结果只是一个大致的画像。同一个标签下的人，在具体问题上可能想法差得很远；每条轴只有 10 道题，分数有十几分的误差。</p>
+</section>
+
+</main>
+<script>
+(function(){
+var AX=[
+ {name:'经济体制',neg:'国家主导',pos:'市场主导'},
+ {name:'分配福利',neg:'平等优先',pos:'效率优先'},
+ {name:'政治权力',neg:'集中权威',pos:'制衡自由'},
+ {name:'文化社会',neg:'传统',pos:'多元'},
+ {name:'民族对外',neg:'民族本位',pos:'国际开放'}
+];
+var BANK=[
+ [[-1,'关系国计民生的重要行业，必须由国有企业掌握。'],[1,'国有企业应当退出一般的竞争性行业。'],[-1,'政府集中资源扶持重点产业，比让市场自己选择更有效。'],[1,'农村土地应当允许农民自由买卖。'],[-1,'粮食、能源这类重要商品的价格应当由政府调控，不能完全交给市场。'],[1,'民营企业在贷款和行业准入上，应当得到和国企完全同等的待遇。'],[-1,'资本的扩张必须受到严格约束，否则会损害社会。'],[1,'政府对企业经营的干预越少越好。'],[-1,'教育和医疗不应当市场化，应当主要由公立机构提供。'],[1,'房价应当主要由市场决定，政府不必限价限购。']],
+ [[-1,'应当对高收入者征更重的税，用来缩小贫富差距。'],[1,'贫富差距是市场竞争的正常结果，不需要刻意去拉平。'],[-1,'应当开征遗产税和房产税，防止财富一代代固化。'],[1,'福利太好会养懒人，保障只应当覆盖最困难的人。'],[-1,'养老和医疗应当全国统一标准，城乡和地区之间不该有差别。'],[1,'企业应当有权按经营需要自由裁员。'],[-1,'应当严格执行八小时工作制，哪怕企业成本因此上升。'],[1,'一个人的收入主要取决于自己的努力和能力，而不是社会环境。'],[-1,'工人应当有权自己组织起来，和资方集体谈判。'],[1,'先把经济做大，比怎么分配更重要。']],
+ [[-1,'中国这样的大国，需要强有力的集中领导才能保持稳定和发展。'],[1,'法院应当独立审判，不受党政机关干预。'],[-1,'为了社会稳定，对网络言论进行管理是必要的。'],[1,'各级领导人应当由竞争性的选举产生。'],[-1,'西方式的多党竞争制度不适合中国国情。'],[1,'媒体应当可以自由地批评政府和官员。'],[-1,'国家安全和个人隐私发生冲突时，应当优先保障国家安全。'],[1,'公民应当有自由结社、集会和游行的权利。'],[-1,'集中力量办大事的体制，比分权制衡的体制更有效率。'],[1,'政府的权力必须受到宪法和法律的严格限制，即使这会降低办事效率。']],
+ [[-1,'学校应当加强传统文化和经典的教育。'],[1,'同性伴侣应当享有和异性夫妻同等的法律权利。'],[-1,'结婚生育是一个人对家庭和社会应尽的责任。'],[1,'不结婚、不生育是个人自由，社会不应当施加压力。'],[-1,'文艺作品应当弘扬正面价值，对不良内容要加以限制。'],[1,'成年人自愿的私人行为，哪怕不合主流道德，法律也不该管。'],[-1,'现在的社会过于强调个人，忽视了集体和家庭。'],[1,'女性在职场和家庭里受到的不平等对待，需要靠制度来纠正。'],[-1,'婚姻这类人生大事，子女应当尊重父母的意见。'],[1,'死刑应当逐步废除。']],
+ [[-1,'在国际交往中，应当用更强硬的姿态维护国家利益。'],[1,'中国应当更主动地融入现有的国际规则和秩序。'],[-1,'西方国家始终想遏制中国的发展。'],[1,'人权是普遍的价值，不因国家和文化而不同。'],[-1,'关键技术必须自主可控，哪怕成本高得多。'],[1,'应当进一步降低关税，扩大进口和外资准入。'],[-1,'国家统一是不容讨论的核心利益，必要时可以使用武力。'],[1,'批评本国的问题是爱国的表现，不应当被看作抹黑。'],[-1,'应当优先购买国货，买外国产品要考虑国家利益。'],[1,'应当放宽外国人来华工作和定居的限制。']]
+];
+var SHIFT=[0,3,6,1,4],Q=[];
+for(var r=0;r<10;r++){for(var a=0;a<5;a++){var it=BANK[a][(r+SHIFT[a])%10];Q.push({ax:a,dir:it[0],t:it[1]});}}
+var N=Q.length,KEY='cn-compass-v1',T=15;
+var TYPES={
+ '1,1':['市场自由派','主张市场经济和有限政府，看重法治、分权和个人权利。在中国的讨论里，这一路通常被叫作自由派或“右派”。'],
+ '-1,1':['社会民主派','既要平等和保障，也要民主和法治。希望用再分配和公共服务去纠正市场，同时把权力管住。常被叫作自由左翼。'],
+ '-1,-1':['国家主义左翼','相信强有力的国家应当主导经济、保障平等，对资本和西方模式保持警惕。在中国的讨论里，这一路通常被叫作“左派”。'],
+ '1,-1':['新权威主义','支持市场化和经济上的开放，同时认为需要集中而强有力的政府来保证秩序和效率。'],
+ '0,1':['温和自由派','经济上不走极端，最在意的是权力受约束、法治和个人自由。'],
+ '0,-1':['秩序优先的中间派','经济上不走极端，更看重稳定、秩序和国家能力，对快速的政治变动持保留态度。'],
+ '-1,0':['温和左翼','看重平等、保障和国家对经济的调节，在政治权力的问题上不偏向哪一端。'],
+ '1,0':['温和市场派','支持市场化改革和效率，在政治权力的问题上不偏向哪一端。'],
+ '0,0':['中间派','在经济和政治两条主轴上都靠近中点，倾向于就事论事，而不是按阵营表态。']
+};
+var S={a:[],i:0};
+function $(id){return document.getElementById(id)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Array.isArray(d.a)){return {a:d.a.slice(0,N),i:Math.min(Math.max(d.i|0,0),N-1)}}}catch(e){}return null}
+function answered(){var c=0;for(var k=0;k<N;k++){if(typeof S.a[k]==='number'){c++}}return c}
+function scores(){
+  var sum=[0,0,0,0,0];
+  for(var k=0;k<N;k++){if(typeof S.a[k]==='number'){sum[Q[k].ax]+=Q[k].dir*S.a[k]}}
+  return sum.map(function(v){return Math.round(v/20*100)});
+}
+function code(sc){return 'r-'+sc.map(function(v){return ('00'+(v+100)).slice(-3)}).join('-')}
+function parse(h){
+  var m=/^#?r-(\d{3})-(\d{3})-(\d{3})-(\d{3})-(\d{3})$/.exec(h||'');
+  if(!m){return null}
+  var out=[];for(var k=1;k<=5;k++){var v=parseInt(m[k],10)-100;if(v<-100||v>100){return null}out.push(v)}
+  return out;
+}
+function show(v){['start','quiz','result'].forEach(function(n){$('v-'+n).hidden=(n!==v)});window.scrollTo(0,0)}
+function word(v,neg,pos){var m=Math.abs(v);if(m<T){return '居中'}return (m<40?'略偏':(m<70?'偏':'明显偏'))+(v<0?neg:pos)}
+function sign(v){return (v>0?'+':'')+v}
+
+function renderStart(){
+  var n=answered();
+  var res=$('btn-resume');
+  if(n>0&&n<N){res.hidden=false;res.textContent='继续上次（已答 '+n+' 题）';$('btn-start').textContent='从头开始'}
+  else if(n===N){res.hidden=false;res.textContent='查看上次结果';$('btn-start').textContent='重新测试'}
+  else{res.hidden=true;$('btn-start').textContent='开始测试'}
+  show('start');
+}
+function renderQ(){
+  var q=Q[S.i];
+  $('q-count').textContent=(S.i+1)+' / '+N;
+  $('q-axis').textContent=AX[q.ax].name;
+  $('q-bar').style.width=Math.round(answered()/N*100)+'%';
+  $('q-text').textContent=q.t;
+  var cur=S.a[S.i];
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.setAttribute('aria-pressed',String(typeof cur==='number'&&cur===+b.getAttribute('data-v')))});
+  $('btn-back').style.visibility=S.i>0?'visible':'hidden';
+  show('quiz');
+}
+var busy=false;
+function pick(v){
+  if(busy){return}
+  S.a[S.i]=v;save();
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.setAttribute('aria-pressed',String(v===+b.getAttribute('data-v')))});
+  busy=true;
+  setTimeout(function(){
+    busy=false;
+    if(S.i<N-1){S.i++;save();renderQ()}
+    else if(answered()===N){finish()}
+    else{for(var k=0;k<N;k++){if(typeof S.a[k]!=='number'){S.i=k;break}}renderQ()}
+  },130);
+}
+function finish(){
+  var sc=scores();
+  renderResult(sc,true);
+  try{location.hash=code(sc)}catch(e){}
+}
+function summary(sc,type){
+  var lines=['我的中国政治坐标：'+type];
+  sc.forEach(function(v,k){lines.push(AX[k].name+'：'+word(v,AX[k].neg,AX[k].pos)+'（'+sign(v)+'）')});
+  lines.push('（分数范围 −100 到 +100，来自“中国政治坐标测试”）');
+  return lines.join('\n');
+}
+var shown='';
+function renderResult(sc,own){
+  shown=code(sc);
+  var x=Math.round((sc[0]+sc[1])/2),y=sc[2];
+  var ex=x<=-T?-1:(x>=T?1:0),py=y<=-T?-1:(y>=T?1:0);
+  var ty=TYPES[ex+','+py];
+  $('r-shared').hidden=own;
+  $('r-type').textContent=ty[0];
+  $('r-desc').textContent=ty[1];
+  var cn=Math.round((sc[0]+sc[2]+sc[4])/3);
+  $('r-cn').textContent=(Math.abs(cn)<T?'大致居中':(cn>0?(cn<40?'略偏右':'偏右'):(cn>-40?'略偏左':'偏左')))+'。在中国，“右”指亲市场、要法治、主张开放，“左”指重国家、重平等和民族立场。';
+  $('r-west').textContent='经济上'+word(x,'左','右')+'，政治上'+word(y,'权威','自由')+'，文化上'+word(sc[3],'保守','进步')+'。';
+  var mods=[];
+  mods.push(Math.abs(sc[3])<20?'文化议题上没有明显倾向':(sc[3]>0?'文化上偏向多元和个人选择':'文化上偏向传统和家庭'));
+  mods.push(Math.abs(sc[4])<20?'对外态度居中':(sc[4]>0?'对外偏向开放和国际合作':'对外偏向民族本位和自主'));
+  mods.push(Math.abs(sc[0]-sc[1])>=40?(sc[0]>sc[1]?'要市场，也要再分配':'国家主导经济，但不太强调再分配'):'经济体制和分配上的态度比较一致');
+  $('r-mod').textContent=mods.join('；')+'。';
+  var box=$('r-axes');box.textContent='';
+  sc.forEach(function(v,k){
+    var d=document.createElement('div');d.className='ax';
+    var top=document.createElement('div');top.className='top';
+    var b=document.createElement('b');b.textContent=AX[k].name;
+    var s=document.createElement('span');s.textContent=word(v,AX[k].neg,AX[k].pos)+'　'+sign(v);
+    top.appendChild(b);top.appendChild(s);
+    var tr=document.createElement('div');tr.className='track';
+    var dot=document.createElement('i');dot.style.left=((v+100)/2)+'%';tr.appendChild(dot);
+    var ends=document.createElement('div');ends.className='ends';
+    var l=document.createElement('span');l.textContent=AX[k].neg;var rr=document.createElement('span');rr.textContent=AX[k].pos;
+    ends.appendChild(l);ends.appendChild(rr);
+    d.appendChild(top);d.appendChild(tr);d.appendChild(ends);box.appendChild(d);
+  });
+  $('r-text').value=summary(sc,ty[0]);$('r-text').hidden=true;$('r-copied').hidden=true;
+  $('btn-again').textContent=own?'重新测试':'我也测一遍';
+  var mark=$('r-mark');mark.style.transform='translate(0px,0px)';
+  show('result');
+  var dx=(x/100*130).toFixed(1),dy=(y/100*130).toFixed(1);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){mark.style.transform='translate('+dx+'px,'+dy+'px)'})});
+}
+function begin(fresh){
+  shown='';
+  if(fresh){S={a:[],i:0};save()}
+  else{for(var k=0;k<N;k++){if(typeof S.a[k]!=='number'){S.i=k;break}}}
+  if(location.hash){try{location.hash=''}catch(e){}}
+  renderQ();
+}
+
+$('btn-start').onclick=function(){begin(true)};
+$('btn-resume').onclick=function(){if(answered()===N){finish()}else{begin(false)}};
+$('btn-again').onclick=function(){begin(true)};
+$('btn-back').onclick=function(){if(S.i>0){S.i--;save();renderQ()}};
+$('btn-quit').onclick=function(){renderStart()};
+Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){b.onclick=function(){pick(+b.getAttribute('data-v'))}});
+$('btn-copy').onclick=function(){
+  var ta=$('r-text'),msg=$('r-copied');
+  function fallback(){ta.hidden=false;ta.focus();ta.select();msg.textContent='没能自动复制，请长按或全选下面的文字手动复制。';msg.hidden=false}
+  try{navigator.clipboard.writeText(ta.value).then(function(){msg.textContent='已复制，可以直接粘贴给朋友。';msg.hidden=false},fallback)}catch(e){fallback()}
+};
+document.addEventListener('keydown',function(e){
+  if($('v-quiz').hidden||e.metaKey||e.ctrlKey||e.altKey){return}
+  var map={'1':2,'2':1,'3':0,'4':-1,'5':-2};
+  if(Object.prototype.hasOwnProperty.call(map,e.key)){pick(map[e.key])}
+  else if(e.key==='ArrowLeft'&&S.i>0){S.i--;save();renderQ()}
+});
+window.addEventListener('hashchange',function(){
+  var sc=parse(location.hash);
+  if(sc){
+    if(!$('v-result').hidden&&shown===code(sc)){return}
+    renderResult(sc,answered()===N&&code(scores())===code(sc));
+  }
+  else if(!$('v-result').hidden){renderStart()}
+});
+
+function start(data){
+  var d=(data&&Array.isArray(data.a))?data:load();
+  if(d){S={a:d.a.slice(0,N),i:Math.min(Math.max(d.i|0,0),N-1)}}
+  var sc=parse(location.hash);
+  if(sc){renderResult(sc,answered()===N&&code(scores())===code(sc))}
+  else if(data&&data.v==='quiz'){renderQ()}
+  else{renderStart()}
+}
+var hot=window.claude&&window.claude.hot;
+if(hot&&hot.snapshot){hot.snapshot(function(){return {a:S.a,i:S.i,v:$('v-quiz').hidden?'other':'quiz'}})}
+if(hot&&hot.ready){hot.ready(start)}else{start((hot&&hot.data)||{})}
+})();
+</script>
+</body>
+</html>
